@@ -43,3 +43,6 @@ language:
     solution: 'Solución. '
 ---
 
+#Introducción:
+
+  El objetivo de este proyecto es que nos enfrentemos a un problema de tratamiento de datos que abarque todas las etapas que estamos describiendo a lo largo del curso. Analizaremos los datos recogidos por sensores que monitorizan el nivel de ruido en diferentes localizaciones del barrio de Ruzafa. 
