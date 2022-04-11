@@ -1,0 +1,45 @@
+---
+title: " ProyectoTD2022"
+subtitle: "Tratamiento de Datos. Grado en Ciencia de Datos- UV"
+author: "Grupo H"
+date:  "`r Sys.Date()`" 
+
+
+params:
+  lang: ES
+lang: "`r switch(params$lang, ES = 'es-ES', EN = 'en-US')`"
+
+
+output:
+  pdf_document:
+    toc: yes      
+    toc_depth: 3  
+    
+  html_document:
+    echo: yes
+    number_sections: yes
+    theme: lumen     
+    toc: yes
+    
+  html_notebook:
+    echo: yes
+    number_sections: yes
+    toc: yes
+    
+language:
+  label:
+    fig: 'Figura '
+    tab: 'Tabla '
+    eq: 'Ecuación '
+    thm: 'Teorema '
+    lem: 'Lema '
+    def: 'Definición '
+    cor: 'Corolario '
+    prp: 'Proposición '
+    exm: 'Ejemplo '
+    exr: 'Ejercicio '
+    proof: 'Demostración. '
+    remark: 'Nota: '
+    solution: 'Solución. '
+---
+
