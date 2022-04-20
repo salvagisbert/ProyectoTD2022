@@ -46,3 +46,28 @@ language:
 #Introducción:
 
   El objetivo de este proyecto es que nos enfrentemos a un problema de tratamiento de datos que abarque todas las etapas que estamos describiendo a lo largo del curso. Analizaremos los datos recogidos por sensores que monitorizan el nivel de ruido en diferentes localizaciones del barrio de Ruzafa. 
+  
+#FASE 1. Importación de los datos
+
+  Para comenzar a analizar los datos, debemos primero importarlos.
+
+```{r}
+Cadiz_3 <- read.csv("data/Cadiz_3.csv")
+Cadiz_16 <- read.csv("data/Cadiz_16.csv")
+CarlesCervera_34 <- read.csv("data/CarlesCervera_34.csv")
+CarlesCervera_Chaf_ReinaDonyaMaria <- read.csv("data/CarlesCervera_Chaf_ReinaDonyaMaria.csv")
+Cuba_3 <- read.csv("data/Cuba_3.csv")
+DoctorSerrano_21 <- read.csv("data/DoctorSerrano_21.csv")
+GeneralPrim_Chaf_DonosoCortes <- read.csv("data/GeneralPrim_Chaf_DonosoCortes.csv")
+PuertoRico_21 <- read.csv("data/PuertoRico_21.csv")
+SalvadorAbril_Chaf_Maestro_JoseSerrano <- read.csv("data/SalvadorAbril_Chaf_Maestro_JoseSerrano.csv")
+Sueca_2 <- read.csv("data/Sueca_2.csv")
+Sueca_32 <- read.csv("data/Sueca_32.csv")
+Sueca_61 <- read.csv("data/Sueca_61.csv")
+Sueca_Esq_Denia <- read.csv("data/Sueca_Esq_Denia.csv")
+Vivons_Chaf_Cadiz <- read.csv("data/Vivons_Chaf_Cadiz.csv")
+```
+
+  
+  
+  
