@@ -67,6 +67,56 @@ Sueca_61 <- read.csv("data/Sueca_61.csv")
 Sueca_Esq_Denia <- read.csv("data/Sueca_Esq_Denia.csv")
 Vivons_Chaf_Cadiz <- read.csv("data/Vivons_Chaf_Cadiz.csv")
 ```
+#FASE 2. Se juntan los data frames en uno solo.
+
+```{r}
+datos <- rbind(Cadiz_3, rbind(Cadiz_16, rbind(CarlesCervera_34, rbind(CarlesCervera_Chaf_ReinaDonyaMaria, rbind(Cuba_3, rbind(DoctorSerrano_21, rbind(GeneralPrim_Chaf_DonosoCortes, rbind(PuertoRico_21, rbind(SalvadorAbril_Chaf_Maestro_JoseSerrano, rbind(Sueca_2, rbind(Sueca_32, rbind(Sueca_61, rbind(Sueca_Esq_Denia, rbind(Vivons_Chaf_Cadiz)))))))))))))) 
+```
+
+
+Analisis inicial de los datos.
+
+```{r}
+summary(datos)
+glimpse(datos)
+```
+
+Variacion del ruido entre las 7h y las 19h durante los meses del año dividido en años
+```{r}
+library(ggplot2)
+library(dplyr)
+library(tidyr)
+datos2 <- separate(datos, col = dateObserved, into = c("year", "month", "day"), sep = "-")
+datos2 %>% group_by(month) %>% 
+  ggplot(aes(x = month, y = LAeq_d, col = month)) + geom_line(aes(size=1)) + labs(x = "Meses", y = "Ruido entre las 7h y las 19h") + facet_grid(year~.)
+```
+
+
+Medicion de ruido durante diferentes franjas horarias del dia de marzo(fallas), es el mes que mas ruido hay en Ruzafa durante el año.
+```{r}
+datos2$day <- as.numeric(datos2$day)
+datos2$month <- as.numeric(datos2$month)
+datos2$year <- as.numeric(datos2$year)
+datos2 %>% 
+  filter(month == 3) %>% 
+  ggplot(aes(x = day, y = LAeq_d, col = day, group = day)) + geom_line() + geom_point() + labs(x = "Dias de marzo", y = "") + ggtitle("Ruido entre las 7h y las 19h")
+datos2 %>% 
+  filter(month == 3) %>%
+  ggplot(aes(x = day, y = LAeq_e, col = day, group = day)) + geom_line() + geom_point() + labs(x = "Dias de marzo", y = "") + ggtitle("Ruido entre las 19h y las 23h")
+datos2 %>% 
+  filter(month == 3) %>%
+  ggplot(aes(x = day, y = LAeq_n, col = day, group = day)) + geom_line() + geom_point() + labs(x = "Dias de marzo", y = "") + ggtitle("Ruido entre las 23h y las 7h")
+```
+
+
+
+
+
+
+
+
+
+
 
   
   
