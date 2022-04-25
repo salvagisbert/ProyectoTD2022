@@ -42,10 +42,61 @@ language:
     remark: 'Nota: '
     solution: 'Solución. '
 ---
+# Configuración del los bloques (*Chunks*)
+
+```{r setup, cache = F, echo = F, message = F, warning = F, tidy = F}
+
+# CONFIGURACIÓN GENERAL
+library(knitr)
+options(width = 100)
+
+# Opciones generales de los chucks. Se utilizarán salvo cambios en el chunk
+opts_chunk$set(echo=F, message = F, error = F, warning = F, comment = NA, fig.align = 'center', dpi = 200, tidy = F, cache.path = '.cache/', fig.path = './figura/')
+
+# Opciones generales de dígitos cuando se incluyen tablas
+#options(xtable.type = 'html')
+knit_hooks$set(inline = function(x) {
+  
+  if(is.numeric(x)) {
+    round(x, getOption('digits'))
+  } else {
+    paste(as.character(x), collapse = ', ')
+  }
+})
+#knit_hooks$set(plot = knitr:::hook_plot_html)
+```
+
+# Instalación automática de paquetes
+
+Especificar las librerías necesarias para ejecutar el código en la variable ***packages***. Si no está instaladas, se instalarán y cargarán (solo para aquellas que están en el repositorio <http://cran.rediris.es>)
+
+El siguiente bloque, al no especificar opciones del *chunk* usa la configuración por defecto.
+
+```{r}
+
+# Especificamos las librerías necesarias en esta lista
+
+packages = c("tidyverse","knitr","tidyverse", "readr", "ggplot2", "dplyr", "tidyr", "lubridate")
+
+#use this function to check if each package is on the local machine
+#if a package is installed, it will be loaded
+#if any are not, the missing package(s) will be installed and loaded
+package.check <- lapply(packages, FUN = function(x) {
+  if (!require(x, character.only = TRUE)) {
+    install.packages(x, dependencies = TRUE,repos='http://cran.rediris.es')
+  }
+  library(x, character.only = TRUE)
+})
+
+#verify they are loaded
+search()
+
+```
 
 #Introducción:
 
   El objetivo de este proyecto es que nos enfrentemos a un problema de tratamiento de datos que abarque todas las etapas que estamos describiendo a lo largo del curso. Analizaremos los datos recogidos por sensores que monitorizan el nivel de ruido en diferentes localizaciones del barrio de Ruzafa. 
+
   
 #FASE 1. Importación de los datos
 
@@ -83,9 +134,6 @@ glimpse(datos)
 
 Variacion del ruido entre las 7h y las 19h durante los meses del año dividido en años
 ```{r}
-library(ggplot2)
-library(dplyr)
-library(tidyr)
 datos2 <- separate(datos, col = dateObserved, into = c("year", "month", "day"), sep = "-")
 datos2 %>% group_by(month) %>% 
   ggplot(aes(x = month, y = LAeq_d, col = month)) + geom_line(aes(size=1)) + labs(x = "Meses", y = "Ruido entre las 7h y las 19h") + facet_grid(year~.)
