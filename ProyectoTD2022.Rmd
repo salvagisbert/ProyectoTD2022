@@ -137,6 +137,10 @@ Variacion del ruido entre las 7h y las 19h durante los meses del año dividido e
 datos2 <- separate(datos, col = dateObserved, into = c("year", "month", "day"), sep = "-")
 datos2 %>% group_by(month) %>% 
   ggplot(aes(x = month, y = LAeq_d, col = month)) + geom_line(aes(size=1)) + labs(x = "Meses", y = "Ruido entre las 7h y las 19h") + facet_grid(year~.)
+datos2 %>% group_by(month) %>% 
+  ggplot(aes(x = month, y = LAeq_e, col = month)) + geom_line(aes(size=1)) + labs(x = "Meses", y = "Ruido entre las 19h y las 23h") + facet_grid(year~.)
+datos2 %>% group_by(month) %>% 
+  ggplot(aes(x = month, y = LAeq_n, col = month)) + geom_line(aes(size=1)) + labs(x = "Meses", y = "Ruido entre las 23h y las 7h") + facet_grid(year~.)
 ```
 
 
