@@ -208,6 +208,7 @@ datos %>% filter(r_7a19 == Inf | r_19a23 == Inf)
 #Imputación
 datos$r_7a19[which(datos$r_7a19==Inf)]<-max(datos$r_7a19[which(datos$r_7a19!=Inf)])
 datos$r_19a23[which(datos$r_19a23==Inf)]<-max(datos$r_19a23[which(datos$r_19a23!=Inf)])
+
 ```
 
 ##Clasificación por franja horaria
