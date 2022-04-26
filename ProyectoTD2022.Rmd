@@ -157,15 +157,63 @@ datos2 %>%
 ```
 
 
+#Fase 3. Acondicionamiento en tidy dataset
 
+##Datos no variables
 
+Comprobamos los datos que no varían y eliminamos las columnas. 
 
+```{r}
+datos<-datos[,-(3:5)]
+```
 
+##Nombres de las columnas
 
+Renombramos las columnas con el fin de manejarlas más fácilmente y de que tengan un nombre más representativo.
 
+```{r}
+colnames(datos)<- c("id", "tiempo_grabacion", "r_continuo","r_7a19", "r_tardenoche", "r_19a23", "r_23a7","fecha_observacion")
+```
 
+##Tipos de las variables
 
+Como hemos visto anteriormente en el análisis inicial de los datos, debemos cambiar la columna ahora llamada tiempo_grabacion a tipo factor, y la variable fecha_observacion a tipo fecha.
 
-  
-  
-  
+```{r}
+summary(datos)
+datos$tiempo_grabacion<-as.factor(datos$tiempo_grabacion)
+datos$fecha_observacion<-as.Date(datos$fecha_observacion)
+```
+
+##Datos faltantes
+
+Vamos a ver si existen datos faltantes(NA) por si hay que corregirlos.
+
+```{r}
+sum(is.na(datos))
+```
+
+##Valores infinitos
+
+Hemos observado que existen valores infinitos en el maximo de r_7_19 y en r_19_23, así que vamos a imputar sus valores como el máximo de los demás:
+
+```{r}
+#Vemos que son infinitos
+max(datos$r_7a19)
+max(datos$r_19a23)
+
+#Filas con los datos de infinito
+datos %>% filter(r_7a19 == Inf | r_19a23 == Inf)
+
+#Imputación
+datos$r_7a19[which(datos$r_7a19==Inf)]<-max(datos$r_7a19[which(datos$r_7a19!=Inf)])
+datos$r_19a23[which(datos$r_19a23==Inf)]<-max(datos$r_19a23[which(datos$r_19a23!=Inf)])
+```
+
+##Clasificación por franja horaria
+
+Finalmente para que sea un correcto tidy dataset debemos definir el nivel de sonoridad en las horas en las que hemos grabado.
+
+```{r}
+gather(datos, key= Horario, value= Nivel_Sonoro ,4:8)
+```
