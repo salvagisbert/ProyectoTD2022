@@ -3,29 +3,25 @@ title: " ProyectoTD2022"
 subtitle: "Tratamiento de Datos. Grado en Ciencia de Datos- UV"
 author: "Grupo H"
 date:  "`r Sys.Date()`" 
-
-
 params:
   lang: ES
 lang: "`r switch(params$lang, ES = 'es-ES', EN = 'en-US')`"
-
-
 output:
-  pdf_document:
-    toc: yes      
-    toc_depth: 3  
-    
   html_document:
+    
     echo: yes
     number_sections: yes
     theme: lumen     
     toc: yes
+  pdf_document:
     
+    toc: yes      
+    toc_depth: 3  
   html_notebook:
+    
     echo: yes
     number_sections: yes
     toc: yes
-    
 language:
   label:
     fig: 'Figura '
@@ -131,6 +127,10 @@ Analisis inicial de los datos.
 summary(datos)
 glimpse(datos)
 ```
+¿Cuántas variables o columnas tiene el data frame?
+¿Los datos son fácilmente accesibles?
+¿Que datos podemos observar en este data frame?
+¿Hay datos perdidios?¿Es un analisis univariante o bivariante?
 
 Variacion del ruido entre las 7h y las 19h durante los meses del año dividido en años
 ```{r}
