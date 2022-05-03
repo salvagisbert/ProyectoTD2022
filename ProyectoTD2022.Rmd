@@ -127,7 +127,7 @@ Analisis inicial de los datos.
 summary(datos)
 glimpse(datos)
 ```
-¿Cuántas variables o columnas tiene el data frame?
+¿Cuántas variables o columnas tiene el data frame?.
 ¿Los datos son fácilmente accesibles?
 ¿Que datos podemos observar en este data frame?
 ¿Hay datos perdidios?¿Es un analisis univariante o bivariante?
