@@ -137,7 +137,7 @@ Si, porque si observamos el DF, se ve claramente y a simple vista la informació
 En este DF observamos los datos recogidos por sensores que monitorizan el nivel de ruido en diferentes localizaciones del barrio de Ruzafa.
 
 4) ¿Hay datos perdidos?¿Es un analisis univariante o bivariante?
-
+Si que hay datos perdidos, y es un análisis bivariante.
 
 Variacion del ruido entre las 7h y las 19h durante los meses del año dividido en años
 ```{r}
