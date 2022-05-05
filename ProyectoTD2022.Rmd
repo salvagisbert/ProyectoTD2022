@@ -128,6 +128,7 @@ summary(datos)
 glimpse(datos)
 ```
 1) ¿Cuántas variables o columnas tiene el data frame?
+
 El DataFrame "datos" tiene 8 variables.
 
 2) ¿Los datos son fácilmente accesibles?
