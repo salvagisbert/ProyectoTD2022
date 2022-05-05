@@ -127,10 +127,17 @@ Analisis inicial de los datos.
 summary(datos)
 glimpse(datos)
 ```
-¿Cuántas variables o columnas tiene el data frame?
-¿Los datos son fácilmente accesibles?
-¿Que datos podemos observar en este data frame?
-¿Hay datos perdidios?¿Es un analisis univariante o bivariante?
+1) ¿Cuántas variables o columnas tiene el data frame?
+El DataFrame "datos" tiene 8 variables.
+
+2) ¿Los datos son fácilmente accesibles?
+Si, porque si observamos el DF, se ve claramente y a simple vista la información.
+
+3) ¿Que datos podemos observar en este data frame?
+En este DF observamos los datos recogidos por sensores que monitorizan el nivel de ruido en diferentes localizaciones del barrio de Ruzafa.
+
+4) ¿Hay datos perdidos?¿Es un analisis univariante o bivariante?
+
 
 Variacion del ruido entre las 7h y las 19h durante los meses del año dividido en años
 ```{r}
