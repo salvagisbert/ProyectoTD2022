@@ -144,7 +144,6 @@ En el Data Frame observamos los datos recogidos por sensores que monitorizan el 
 Si que hay datos perdidos y, es un análisis bivariante ya que tenemos más de una variable.
 
 Variacion del ruido entre las 7h y las 19h durante los meses del año dividido en años
-
 ```{r}
 datos2 <- separate(datos, col = dateObserved, into = c("year", "month", "day"), sep = "-")
 datos2 %>% group_by(month) %>% 
