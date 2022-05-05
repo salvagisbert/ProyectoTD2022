@@ -226,7 +226,7 @@ datos$r_19a23[which(datos$r_19a23==Inf)]<-max(datos$r_19a23[which(datos$r_19a23!
 
 ```
 
-##Clasificación por franja horaria
+##Clasificación por franja horaria.
 
 Finalmente para que sea un correcto tidy dataset debemos definir el nivel de sonoridad en las horas en las que hemos grabado.
 
