@@ -231,5 +231,6 @@ datos$r_19a23[which(datos$r_19a23==Inf)]<-max(datos$r_19a23[which(datos$r_19a23!
 Finalmente para que sea un correcto tidy dataset debemos definir el nivel de sonoridad en las horas en las que hemos grabado.
 
 ```{r}
-gather(datos, key= Horario, value= Nivel_Sonoro ,4:8)
+datos<- gather(datos, key= Horario, value= Nivel_Sonoro ,4:7)
+head(datos)
 ```
