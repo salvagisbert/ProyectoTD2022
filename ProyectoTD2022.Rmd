@@ -225,6 +225,14 @@ datos$r_7a19[which(datos$r_7a19==Inf)]<-max(datos$r_7a19[which(datos$r_7a19!=Inf
 datos$r_19a23[which(datos$r_19a23==Inf)]<-max(datos$r_19a23[which(datos$r_19a23!=Inf)])
 
 ```
+##Fecha Observación
+Separamos la fecha de observación en 3 columnas (año, mes y día)
+```{r}
+datos <- separate(datos, col = fecha_observacion, into = c("year", "month", "day"), sep = "-")
+datos$day <- as.numeric(datos$day)
+datos$month <- as.numeric(datos$month)
+datos$year <- as.numeric(datos$year)
+```
 
 ##Clasificación por franja horaria.
 
@@ -232,5 +240,4 @@ Finalmente para que sea un correcto tidy dataset debemos definir el nivel de son
 
 ```{r}
 datos<- gather(datos, key= Horario, value= Nivel_Sonoro ,4:7)
-head(datos)
 ```
