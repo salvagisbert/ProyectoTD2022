@@ -100,24 +100,53 @@ search()
 
 ```{r}
 Cadiz_3 <- read.csv("data/Cadiz_3.csv")
+Cadiz_3<- mutate(Cadiz_3, c="cadiz_3")
+
 Cadiz_16 <- read.csv("data/Cadiz_16.csv")
+Cadiz_16<- mutate(Cadiz_16, c="Cadiz_16")
+
 CarlesCervera_34 <- read.csv("data/CarlesCervera_34.csv")
+CarlesCervera_34<- mutate(CarlesCervera_34, c="CarlesCervera_34")
+
 CarlesCervera_Chaf_ReinaDonyaMaria <- read.csv("data/CarlesCervera_Chaf_ReinaDonyaMaria.csv")
+CarlesCervera_Chaf_ReinaDonyaMaria<- mutate(CarlesCervera_Chaf_ReinaDonyaMaria, c="CarlesCervera_Chaf_ReinaDonyaMaria")
+
 Cuba_3 <- read.csv("data/Cuba_3.csv")
+Cuba_3<- mutate(Cuba_3, c="Cuba_3")
+
 DoctorSerrano_21 <- read.csv("data/DoctorSerrano_21.csv")
+DoctorSerrano_21<-mutate(DoctorSerrano_21, c="DoctorSerrano_21")
+
 GeneralPrim_Chaf_DonosoCortes <- read.csv("data/GeneralPrim_Chaf_DonosoCortes.csv")
+GeneralPrim_Chaf_DonosoCortes<- mutate(GeneralPrim_Chaf_DonosoCortes, c="GeneralPrim_Chaf_DonosoCortes")
+
 PuertoRico_21 <- read.csv("data/PuertoRico_21.csv")
+PuertoRico_21<- mutate(PuertoRico_21, c="PuertoRico_21")
+
 SalvadorAbril_Chaf_Maestro_JoseSerrano <- read.csv("data/SalvadorAbril_Chaf_Maestro_JoseSerrano.csv")
+
+SalvadorAbril_Chaf_Maestro_JoseSerrano<- mutate(SalvadorAbril_Chaf_Maestro_JoseSerrano, c="SalvadorAbril_Chaf_Maestro_JoseSerrano")
+
 Sueca_2 <- read.csv("data/Sueca_2.csv")
+Sueca_2<- mutate(Sueca_2, c="Sueca_2")
+
 Sueca_32 <- read.csv("data/Sueca_32.csv")
+Sueca_32<- mutate(Sueca_32, c="Sueca_32")
+
 Sueca_61 <- read.csv("data/Sueca_61.csv")
+Sueca_61<- mutate(Sueca_61, c="Sueca_61")
+
 Sueca_Esq_Denia <- read.csv("data/Sueca_Esq_Denia.csv")
+Sueca_Esq_Denia<-mutate(Sueca_Esq_Denia, c="Sueca_Esq_Denia")
+
 Vivons_Chaf_Cadiz <- read.csv("data/Vivons_Chaf_Cadiz.csv")
+Vivons_Chaf_Cadiz<- mutate(Vivons_Chaf_Cadiz, c="Vivons_Chaf_Cadiz")
 ```
 #FASE 2. Se juntan los data frames en uno solo.
 
 ```{r}
 datos <- rbind(Cadiz_3, rbind(Cadiz_16, rbind(CarlesCervera_34, rbind(CarlesCervera_Chaf_ReinaDonyaMaria, rbind(Cuba_3, rbind(DoctorSerrano_21, rbind(GeneralPrim_Chaf_DonosoCortes, rbind(PuertoRico_21, rbind(SalvadorAbril_Chaf_Maestro_JoseSerrano, rbind(Sueca_2, rbind(Sueca_32, rbind(Sueca_61, rbind(Sueca_Esq_Denia, rbind(Vivons_Chaf_Cadiz)))))))))))))) 
+
 ```
 
 
@@ -187,7 +216,7 @@ datos<-datos[,-(3:5)]
 Renombramos las columnas con el fin de manejarlas más fácilmente y de que tengan un nombre más representativo.
 
 ```{r}
-colnames(datos)<- c("id", "tiempo_grabacion", "r_continuo","r_7a19", "r_tardenoche", "r_19a23", "r_23a7","fecha_observacion")
+colnames(datos)<- c("id", "tiempo_grabacion", "r_continuo","r_7a19", "r_tardenoche", "r_19a23", "r_23a7","fecha_observacion", "calle")
 ```
 
 ##Tipos de las variables
@@ -198,6 +227,7 @@ Como hemos visto anteriormente en el análisis inicial de los datos, debemos cam
 summary(datos)
 datos$tiempo_grabacion<-as.factor(datos$tiempo_grabacion)
 datos$fecha_observacion<-as.Date(datos$fecha_observacion)
+datos$calle<-as.factor(datos$calle)
 ```
 
 ##Datos faltantes
@@ -223,7 +253,6 @@ datos %>% filter(r_7a19 == Inf | r_19a23 == Inf)
 #Imputación
 datos$r_7a19[which(datos$r_7a19==Inf)]<-max(datos$r_7a19[which(datos$r_7a19!=Inf)])
 datos$r_19a23[which(datos$r_19a23==Inf)]<-max(datos$r_19a23[which(datos$r_19a23!=Inf)])
-
 ```
 ##Fecha Observación
 Separamos la fecha de observación en 3 columnas (año, mes y día)
