@@ -94,13 +94,13 @@ search()
   El objetivo de este proyecto es que nos enfrentemos a un problema de tratamiento de datos que abarque todas las etapas que estamos describiendo a lo largo del curso. Analizaremos los datos recogidos por sensores que monitorizan el nivel de ruido en diferentes localizaciones del barrio de Ruzafa. 
 
   
-#FASE 1. Importación de los datos
+#FASE 3. Importación de los datos
 
   Para comenzar a analizar los datos, debemos primero importarlos.
 
 ```{r}
 Cadiz_3 <- read.csv("data/Cadiz_3.csv")
-Cadiz_3<- mutate(Cadiz_3, c="cadiz_3")
+Cadiz_3<- mutate(Cadiz_3, c="Cadiz_3")
 
 Cadiz_16 <- read.csv("data/Cadiz_16.csv")
 Cadiz_16<- mutate(Cadiz_16, c="Cadiz_16")
@@ -142,7 +142,7 @@ Sueca_Esq_Denia<-mutate(Sueca_Esq_Denia, c="Sueca_Esq_Denia")
 Vivons_Chaf_Cadiz <- read.csv("data/Vivons_Chaf_Cadiz.csv")
 Vivons_Chaf_Cadiz<- mutate(Vivons_Chaf_Cadiz, c="Vivons_Chaf_Cadiz")
 ```
-#FASE 2. Se juntan los data frames en uno solo.
+#FASE 4. Se juntan los data frames en uno solo.
 
 ```{r}
 datos <- rbind(Cadiz_3, rbind(Cadiz_16, rbind(CarlesCervera_34, rbind(CarlesCervera_Chaf_ReinaDonyaMaria, rbind(Cuba_3, rbind(DoctorSerrano_21, rbind(GeneralPrim_Chaf_DonosoCortes, rbind(PuertoRico_21, rbind(SalvadorAbril_Chaf_Maestro_JoseSerrano, rbind(Sueca_2, rbind(Sueca_32, rbind(Sueca_61, rbind(Sueca_Esq_Denia, rbind(Vivons_Chaf_Cadiz)))))))))))))) 
@@ -201,7 +201,7 @@ datos2 %>%
 ```
 
 
-#Fase 3. Acondicionamiento en tidy dataset
+#Fase 5. Acondicionamiento en tidy dataset
 
 ##Datos no variables
 
@@ -237,6 +237,7 @@ Vamos a ver si existen datos faltantes(NA) por si hay que corregirlos.
 ```{r}
 sum(is.na(datos))
 ```
+Como no existen datos faltantes(NA) no hace falta corregir nada.
 
 ##Valores infinitos
 
@@ -268,5 +269,61 @@ datos$year <- as.numeric(datos$year)
 Finalmente para que sea un correcto tidy dataset debemos definir el nivel de sonoridad en las horas en las que hemos grabado.
 
 ```{r}
-datos<- gather(datos, key= Horario, value= Nivel_Sonoro ,4:7)
+datos<- gather(datos, key= Horario, value= Nivel_Sonoro ,3:7)
 ```
+
+##Fase 6.Estadísticos, análisis, manipulación...
+Finalmente, en esta fase nos dispondremos a analizar los datos de manera que podamos obtener la máxima información posible.
+
+
+#Análisis Univariante
+Comenzaremos esta fase con el análisis univariante. De este modo podremos conocer cómo se comportan nuestras variables.
+
+Primero calcularemos la media del nivel sonoro.
+```{r}
+med_ns <- mean(datos$Nivel_Sonoro)
+```
+Como podemos observar, la media del nivel sonoro en todas las calles es de `r med_ns` dBA.
+
+Seguidamente  calcularemos la mediana de la misma variable.
+
+```{r}
+mdn_ns <- median(datos$Nivel_Sonoro)
+```
+
+Así pues, podemos decir que la mediana del nivel sonoro es `r mdn_ns` dBA.
+
+Podemos también calcular el rango para saber cuál es la diferencia entre el ruido más alto registrado y el más bajo. Aprovecharemos esto y calcularemos también el mínimo y el máximo. De este modo obtendremos el ruido más bajo registrado y el más alto.
+
+```{r}
+maxi <- max(datos$Nivel_Sonoro)
+mini <- min(datos$Nivel_Sonoro)
+rg <- maxi - mini
+```
+
+Tras estos cálculos observamos como el ruido más alto registrado se situó en `r maxi` dBA, en cambio el ruido más bajo rozó los `r mini` dBA. Por tanto, el rango es de `r rg` dBA. 
+
+No obstante, necesitamos obtener un estadístico robusto, es por ello que procederemos a calcular el rango intercuartílico (diferencia entre el tercer y el primer cuartil de una distribución).
+```{r}
+iqr <- IQR(datos$Nivel_Sonoro)
+```
+
+Obtenemos que el Rango Intercuartil esá situado en `r iqr`. Al ser un valor relativamente bajo, podemos afirmar que los valores del nivel sonoro tienen poca dispersión. 
+
+Para ver si los datos están agrupados entorno a su media, utilizaremos la desviación estándar.
+
+```{r}
+de <- sd(datos$Nivel_Sonoro)
+```
+
+El resultado de esta operación nos muestra un valor muy similar al del rango intercuartil; en este caso, la desviación toma un valor de `r de`. Es un valor relativamente bajo también, por lo que podemos afirmar que los valores que toma la variable, se encuentran cerca de su media.
+
+Por último, para detectar posibles outliers podemos hacer un boxplot.
+
+```{r}
+boxplot(datos$Nivel_Sonoro, xlab = "Nivel Sonoro", ylab = "Valores", main = "Dispersión de los datos en la variable Nivel_Sonoro ")
+```
+En efecto se confirma lo que habíamos visto con los estadísticos calculados previamente, una desviación muy baja pero un rango bastante alto.
+
+
+
