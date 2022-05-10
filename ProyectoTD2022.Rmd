@@ -96,50 +96,50 @@ search()
   
 #FASE 3. Importación de los datos
 
-  Para comenzar a analizar los datos, debemos primero importarlos.
+  Para comenzar a analizar los datos, debemos primero importarlos. Los importaremos de internet para que así estén actualizados constantemente de manera automática. De este modo, cada vez que iniciemos el código se va a descargar desde la URL.
 
 ```{r}
-Cadiz_3 <- read.csv("data/Cadiz_3.csv")
-Cadiz_3<- mutate(Cadiz_3, c="Cadiz_3")
+Cadiz_3 <- read.csv("https://opendata.vlci.valencia.es/datastore/dump/6fa5210b-f9c7-47c8-9d1f-ddb7568f62de?format=csv&bom=true")
+Cadiz_3 <- mutate(Cadiz_3, c="Cadiz_3")
 
-Cadiz_16 <- read.csv("data/Cadiz_16.csv")
+
+Cadiz_16 <- read.csv("https://opendata.vlci.valencia.es/datastore/dump/75a878a9-2bd9-4619-98ec-3224be867c65?format=csv&bom=true")
 Cadiz_16<- mutate(Cadiz_16, c="Cadiz_16")
 
-CarlesCervera_34 <- read.csv("data/CarlesCervera_34.csv")
+CarlesCervera_34 <- read.csv("https://opendata.vlci.valencia.es/datastore/dump/b26d42ae-2be9-481a-9b79-71392d9e80bd?format=csv&bom=true")
 CarlesCervera_34<- mutate(CarlesCervera_34, c="CarlesCervera_34")
 
-CarlesCervera_Chaf_ReinaDonyaMaria <- read.csv("data/CarlesCervera_Chaf_ReinaDonyaMaria.csv")
+CarlesCervera_Chaf_ReinaDonyaMaria <- read.csv("https://opendata.vlci.valencia.es/datastore/dump/ea008906-e06a-4c72-9fe6-3238e212aae4?format=csv&bom=true")
 CarlesCervera_Chaf_ReinaDonyaMaria<- mutate(CarlesCervera_Chaf_ReinaDonyaMaria, c="CarlesCervera_Chaf_ReinaDonyaMaria")
 
-Cuba_3 <- read.csv("data/Cuba_3.csv")
+Cuba_3 <- read.csv("https://opendata.vlci.valencia.es/datastore/dump/5a050cef-1107-4b3b-8e61-5daf5cfb2ca4?format=csv&bom=true")
 Cuba_3<- mutate(Cuba_3, c="Cuba_3")
 
-DoctorSerrano_21 <- read.csv("data/DoctorSerrano_21.csv")
+DoctorSerrano_21 <- read.csv("https://opendata.vlci.valencia.es/datastore/dump/784f4732-abc5-41b1-857b-42decb306643?format=csv&bom=true")
 DoctorSerrano_21<-mutate(DoctorSerrano_21, c="DoctorSerrano_21")
 
-GeneralPrim_Chaf_DonosoCortes <- read.csv("data/GeneralPrim_Chaf_DonosoCortes.csv")
+GeneralPrim_Chaf_DonosoCortes <- read.csv("https://opendata.vlci.valencia.es/datastore/dump/3b2fe345-08fc-49d7-85c8-8cccf6a7e814?format=csv&bom=true")
 GeneralPrim_Chaf_DonosoCortes<- mutate(GeneralPrim_Chaf_DonosoCortes, c="GeneralPrim_Chaf_DonosoCortes")
 
-PuertoRico_21 <- read.csv("data/PuertoRico_21.csv")
+PuertoRico_21 <- read.csv("https://opendata.vlci.valencia.es/datastore/dump/1b41d86b-3939-488b-9035-92d851245924?format=csv&bom=true")
 PuertoRico_21<- mutate(PuertoRico_21, c="PuertoRico_21")
 
-SalvadorAbril_Chaf_Maestro_JoseSerrano <- read.csv("data/SalvadorAbril_Chaf_Maestro_JoseSerrano.csv")
-
+SalvadorAbril_Chaf_Maestro_JoseSerrano <- read.csv("https://opendata.vlci.valencia.es/datastore/dump/64e4b7b4-e633-4753-b0ef-a57d785076f8?format=csv&bom=true")
 SalvadorAbril_Chaf_Maestro_JoseSerrano<- mutate(SalvadorAbril_Chaf_Maestro_JoseSerrano, c="SalvadorAbril_Chaf_Maestro_JoseSerrano")
 
-Sueca_2 <- read.csv("data/Sueca_2.csv")
+Sueca_2 <- read.csv("https://opendata.vlci.valencia.es/datastore/dump/e580f492-a2f6-4305-af24-f4c4d05b911c?format=csv&bom=true")
 Sueca_2<- mutate(Sueca_2, c="Sueca_2")
 
-Sueca_32 <- read.csv("data/Sueca_32.csv")
+Sueca_32 <- read.csv("https://opendata.vlci.valencia.es/datastore/dump/d842601d-35b4-4b88-96f7-42e8f68e1b74?format=csv&bom=true")
 Sueca_32<- mutate(Sueca_32, c="Sueca_32")
 
-Sueca_61 <- read.csv("data/Sueca_61.csv")
+Sueca_61 <- read.csv("https://opendata.vlci.valencia.es/datastore/dump/8058f1a5-c605-4baa-afff-2f638efb767f?format=csv&bom=true")
 Sueca_61<- mutate(Sueca_61, c="Sueca_61")
 
-Sueca_Esq_Denia <- read.csv("data/Sueca_Esq_Denia.csv")
+Sueca_Esq_Denia <- read.csv("https://opendata.vlci.valencia.es/datastore/dump/a54fb175-8013-460a-a2f0-22de7a210d7a?format=csv&bom=true")
 Sueca_Esq_Denia<-mutate(Sueca_Esq_Denia, c="Sueca_Esq_Denia")
 
-Vivons_Chaf_Cadiz <- read.csv("data/Vivons_Chaf_Cadiz.csv")
+Vivons_Chaf_Cadiz <- read.csv("https://opendata.vlci.valencia.es/datastore/dump/ff8678b6-748e-4908-ab5b-9c7ff567da61?format=csv&bom=true")
 Vivons_Chaf_Cadiz<- mutate(Vivons_Chaf_Cadiz, c="Vivons_Chaf_Cadiz")
 ```
 #FASE 4. Se juntan los data frames en uno solo.
@@ -321,9 +321,9 @@ El resultado de esta operación nos muestra un valor muy similar al del rango in
 Por último, para detectar posibles outliers podemos hacer un boxplot.
 
 ```{r}
-boxplot(datos$Nivel_Sonoro, xlab = "Nivel Sonoro", ylab = "Valores", main = "Dispersión de los datos en la variable Nivel_Sonoro ")
+ggplot(datos, aes(y = Nivel_Sonoro, x = calle)) + geom_boxplot() + facet_grid() + theme (axis.text = element_text(angle = 90)) + labs(title = "Comparación del nivel sonor por calle", x = "Calle", y = "Nivel Sonoro(dBA)") + geom_point(aes(color='calle'))
 ```
-En efecto se confirma lo que habíamos visto con los estadísticos calculados previamente, una desviación muy baja pero un rango bastante alto.
+Gracias a este gráfico extraemos la siguiente información. La calle más tranquila (de media) es General Prim chaflán con Donoso Cortes. Además, la calle más ruidosa es la calle Cádiz, en concreto el número 3.
 
 
 
