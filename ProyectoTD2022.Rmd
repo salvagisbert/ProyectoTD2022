@@ -176,6 +176,19 @@ glimpse(datos)
 6) En la pregunta anterior, determina cuál es el mes en el que más ruido hay, ¿Cómo se mide el ruido durante las diferentes franjas horarias del dia en ese mes?
 
 
+7) ¿Cómo fue el nivel sonoro en las calles de Ruzafa en cada año? ¿Qué calle alcanzó mayor nivel sonoro durante los diferentes años registrados? ¿Y la que menos?
+
+
+8) ¿Cómo ha variado el ruido en el 2022 en cada calle?
+
+
+9) ¿Cuál ha sido el año en el que se ha producido de media más ruido?
+
+
+10) El nivel sonoro en la tarde-noche representa la molestia que produce, ¿en qué mes hubo mayor malestar en el 2021?¿y en cuál menos?
+
+
+
 #Fase 5. Acondicionamiento en tidy dataset
 
 ##Datos no variables
@@ -302,7 +315,7 @@ El resultado de esta operación nos muestra un valor muy similar al del rango in
 Por último, para detectar posibles outliers podemos hacer un boxplot.
 
 ```{r}
-ggplot(datos, aes(y = Nivel_Sonoro, x = calle)) + geom_boxplot() + facet_grid() + theme (axis.text = element_text(angle = 90)) + labs(title = "Comparación del nivel sonor por calle", x = "Calle", y = "Nivel Sonoro(dBA)") + geom_point(aes(color=calle))
+ggplot(datos, aes(y = Nivel_Sonoro, x = calle)) + geom_boxplot() + facet_grid() + theme (axis.text = element_text(angle = 90)) + labs(title = "Comparación del nivel sonoro por calle", x = "Calle", y = "Nivel Sonoro(dBA)") + geom_point(aes(color=calle))
 ```
 
 Gracias a este gráfico extraemos la siguiente información: La calle más tranquila (de media) es General Prim chaflán con Donoso Cortes. Además, la calle más ruidosa es la calle Cádiz, en concreto el número 3.
