@@ -151,7 +151,6 @@ datos <- rbind(Cadiz_3, rbind(Cadiz_16, rbind(CarlesCervera_34, rbind(CarlesCerv
 
 
 Analisis inicial de los datos.
-
 ```{r}
 summary(datos)
 glimpse(datos)
@@ -224,7 +223,6 @@ colnames(datos)<- c("id", "tiempo_grabacion", "r_continuo","r_7a19", "r_tardenoc
 Como hemos visto anteriormente en el análisis inicial de los datos, debemos cambiar la columna ahora llamada tiempo_grabacion a tipo factor, y la variable fecha_observacion a tipo fecha.
 
 ```{r}
-summary(datos)
 datos$tiempo_grabacion<-as.factor(datos$tiempo_grabacion)
 datos$fecha_observacion<-as.Date(datos$fecha_observacion)
 datos$calle<-as.factor(datos$calle)
@@ -258,9 +256,9 @@ datos$r_19a23[which(datos$r_19a23==Inf)]<-max(datos$r_19a23[which(datos$r_19a23!
 Separamos la fecha de observación en 3 columnas (año, mes y día)
 ```{r}
 datos <- separate(datos, col = fecha_observacion, into = c("year", "month", "day"), sep = "-")
-datos$day <- as.numeric(datos$day)
-datos$month <- as.numeric(datos$month)
-datos$year <- as.numeric(datos$year)
+datos$day <- as.factor(datos$day)
+datos$month <- as.factor(datos$month)
+datos$year <- as.factor(datos$year)
 ```
 
 ##Clasificación por franja horaria.
@@ -268,5 +266,65 @@ datos$year <- as.numeric(datos$year)
 Finalmente para que sea un correcto tidy dataset debemos definir el nivel de sonoridad en las horas en las que hemos grabado.
 
 ```{r}
-datos<- gather(datos, key= Horario, value= Nivel_Sonoro ,4:7)
+datos<- gather(datos, key= Horario, value= Nivel_Sonoro ,3:7)
 ```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
