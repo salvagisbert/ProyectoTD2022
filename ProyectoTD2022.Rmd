@@ -1,7 +1,7 @@
 ---
 title: " ProyectoTD2022"
 subtitle: "Tratamiento de Datos. Grado en Ciencia de Datos- UV"
-author: "Grupo H"
+author: "Grupo H: Salvador Gisbert Sempere, Jorge Albalat Luengo, Maite García Falcón, Aina Rosas Soler, Rosa Martínez Enrich"
 date:  "`r Sys.Date()`" 
 params:
   lang: ES
@@ -38,7 +38,8 @@ language:
     remark: 'Nota: '
     solution: 'Solución. '
 ---
-# Configuración del los bloques (*Chunks*)
+
+# Configuración de los bloques (*Chunks*)
 
 ```{r setup, cache = F, echo = F, message = F, warning = F, tidy = F}
 
@@ -91,120 +92,95 @@ search()
 
 #Introducción:
 
-  El objetivo de este proyecto es que nos enfrentemos a un problema de tratamiento de datos que abarque todas las etapas que estamos describiendo a lo largo del curso. Analizaremos los datos recogidos por sensores que monitorizan el nivel de ruido en diferentes localizaciones del barrio de Ruzafa. 
+El objetivo de este proyecto es que nos enfrentemos a un problema de tratamiento de datos que abarque todas las etapas que estamos describiendo a lo largo del curso. Analizaremos los datos recogidos por sensores que monitorizan el nivel de ruido en diferentes localizaciones del barrio de Ruzafa.
 
-  
-#FASE 1. Importación de los datos
+#FASE 3. Importación de los datos
 
-  Para comenzar a analizar los datos, debemos primero importarlos.
+Para comenzar a analizar los datos, debemos primero importarlos. Los importaremos de internet para que así estén actualizados constantemente de manera automática. De este modo, cada vez que iniciemos el código se va a descargar desde la URL.
 
 ```{r}
-Cadiz_3 <- read.csv("data/Cadiz_3.csv")
-Cadiz_3<- mutate(Cadiz_3, c="cadiz_3")
+Cadiz_3 <- read.csv("https://opendata.vlci.valencia.es/datastore/dump/6fa5210b-f9c7-47c8-9d1f-ddb7568f62de?format=csv&bom=true")
+Cadiz_3 <- mutate(Cadiz_3, c="Cadiz_3")
 
-Cadiz_16 <- read.csv("data/Cadiz_16.csv")
+
+Cadiz_16 <- read.csv("https://opendata.vlci.valencia.es/datastore/dump/75a878a9-2bd9-4619-98ec-3224be867c65?format=csv&bom=true")
 Cadiz_16<- mutate(Cadiz_16, c="Cadiz_16")
 
-CarlesCervera_34 <- read.csv("data/CarlesCervera_34.csv")
+CarlesCervera_34 <- read.csv("https://opendata.vlci.valencia.es/datastore/dump/b26d42ae-2be9-481a-9b79-71392d9e80bd?format=csv&bom=true")
 CarlesCervera_34<- mutate(CarlesCervera_34, c="CarlesCervera_34")
 
-CarlesCervera_Chaf_ReinaDonyaMaria <- read.csv("data/CarlesCervera_Chaf_ReinaDonyaMaria.csv")
+CarlesCervera_Chaf_ReinaDonyaMaria <- read.csv("https://opendata.vlci.valencia.es/datastore/dump/ea008906-e06a-4c72-9fe6-3238e212aae4?format=csv&bom=true")
 CarlesCervera_Chaf_ReinaDonyaMaria<- mutate(CarlesCervera_Chaf_ReinaDonyaMaria, c="CarlesCervera_Chaf_ReinaDonyaMaria")
 
-Cuba_3 <- read.csv("data/Cuba_3.csv")
+Cuba_3 <- read.csv("https://opendata.vlci.valencia.es/datastore/dump/5a050cef-1107-4b3b-8e61-5daf5cfb2ca4?format=csv&bom=true")
 Cuba_3<- mutate(Cuba_3, c="Cuba_3")
 
-DoctorSerrano_21 <- read.csv("data/DoctorSerrano_21.csv")
+DoctorSerrano_21 <- read.csv("https://opendata.vlci.valencia.es/datastore/dump/784f4732-abc5-41b1-857b-42decb306643?format=csv&bom=true")
 DoctorSerrano_21<-mutate(DoctorSerrano_21, c="DoctorSerrano_21")
 
-GeneralPrim_Chaf_DonosoCortes <- read.csv("data/GeneralPrim_Chaf_DonosoCortes.csv")
+GeneralPrim_Chaf_DonosoCortes <- read.csv("https://opendata.vlci.valencia.es/datastore/dump/3b2fe345-08fc-49d7-85c8-8cccf6a7e814?format=csv&bom=true")
 GeneralPrim_Chaf_DonosoCortes<- mutate(GeneralPrim_Chaf_DonosoCortes, c="GeneralPrim_Chaf_DonosoCortes")
 
-PuertoRico_21 <- read.csv("data/PuertoRico_21.csv")
+PuertoRico_21 <- read.csv("https://opendata.vlci.valencia.es/datastore/dump/1b41d86b-3939-488b-9035-92d851245924?format=csv&bom=true")
 PuertoRico_21<- mutate(PuertoRico_21, c="PuertoRico_21")
 
-SalvadorAbril_Chaf_Maestro_JoseSerrano <- read.csv("data/SalvadorAbril_Chaf_Maestro_JoseSerrano.csv")
-
+SalvadorAbril_Chaf_Maestro_JoseSerrano <- read.csv("https://opendata.vlci.valencia.es/datastore/dump/64e4b7b4-e633-4753-b0ef-a57d785076f8?format=csv&bom=true")
 SalvadorAbril_Chaf_Maestro_JoseSerrano<- mutate(SalvadorAbril_Chaf_Maestro_JoseSerrano, c="SalvadorAbril_Chaf_Maestro_JoseSerrano")
 
-Sueca_2 <- read.csv("data/Sueca_2.csv")
+Sueca_2 <- read.csv("https://opendata.vlci.valencia.es/datastore/dump/e580f492-a2f6-4305-af24-f4c4d05b911c?format=csv&bom=true")
 Sueca_2<- mutate(Sueca_2, c="Sueca_2")
 
-Sueca_32 <- read.csv("data/Sueca_32.csv")
+Sueca_32 <- read.csv("https://opendata.vlci.valencia.es/datastore/dump/d842601d-35b4-4b88-96f7-42e8f68e1b74?format=csv&bom=true")
 Sueca_32<- mutate(Sueca_32, c="Sueca_32")
 
-Sueca_61 <- read.csv("data/Sueca_61.csv")
+Sueca_61 <- read.csv("https://opendata.vlci.valencia.es/datastore/dump/8058f1a5-c605-4baa-afff-2f638efb767f?format=csv&bom=true")
 Sueca_61<- mutate(Sueca_61, c="Sueca_61")
 
-Sueca_Esq_Denia <- read.csv("data/Sueca_Esq_Denia.csv")
+Sueca_Esq_Denia <- read.csv("https://opendata.vlci.valencia.es/datastore/dump/a54fb175-8013-460a-a2f0-22de7a210d7a?format=csv&bom=true")
 Sueca_Esq_Denia<-mutate(Sueca_Esq_Denia, c="Sueca_Esq_Denia")
 
-Vivons_Chaf_Cadiz <- read.csv("data/Vivons_Chaf_Cadiz.csv")
+Vivons_Chaf_Cadiz <- read.csv("https://opendata.vlci.valencia.es/datastore/dump/ff8678b6-748e-4908-ab5b-9c7ff567da61?format=csv&bom=true")
 Vivons_Chaf_Cadiz<- mutate(Vivons_Chaf_Cadiz, c="Vivons_Chaf_Cadiz")
 ```
-#FASE 2. Se juntan los data frames en uno solo.
+
+#FASE 4. Se juntan los data frames en uno solo.
 
 ```{r}
 datos <- rbind(Cadiz_3, rbind(Cadiz_16, rbind(CarlesCervera_34, rbind(CarlesCervera_Chaf_ReinaDonyaMaria, rbind(Cuba_3, rbind(DoctorSerrano_21, rbind(GeneralPrim_Chaf_DonosoCortes, rbind(PuertoRico_21, rbind(SalvadorAbril_Chaf_Maestro_JoseSerrano, rbind(Sueca_2, rbind(Sueca_32, rbind(Sueca_61, rbind(Sueca_Esq_Denia, rbind(Vivons_Chaf_Cadiz)))))))))))))) 
 
 ```
 
-
 Analisis inicial de los datos.
 ```{r}
 summary(datos)
 glimpse(datos)
 ```
-1) ¿Cuántas variables o columnas tiene el data frame?
-
-El DataFrame "datos" tiene 8 variables, que son el id, tiempo_grabacion, r_continuo, r_7a19, r_tardenoche, r_19a23, r_23a7 y fecha_observacion.
-
-2) ¿Los datos son fácilmente accesibles?
-
-Si, porque si observamos el Data Frame, se ve claramente y a simple vista la información.
-
-3) ¿Que datos podemos observar en este data frame?
-
-En el Data Frame observamos los datos recogidos por sensores que monitorizan el nivel de ruido en diferentes localizaciones del barrio de Ruzafa.
-
-4) ¿Hay datos perdidos?¿Es un analisis univariante o bivariante?
-
-Si que hay datos perdidos y, es un análisis bivariante ya que tenemos más de una variable.
-
-Variacion del ruido entre las 7h y las 19h durante los meses del año dividido en años
-```{r}
-datos2 <- separate(datos, col = dateObserved, into = c("year", "month", "day"), sep = "-")
-datos2 %>% group_by(month) %>% 
-  ggplot(aes(x = month, y = LAeq_d, col = month)) + geom_line(aes(size=1)) + labs(x = "Meses", y = "Ruido entre las 7h y las 19h") + facet_grid(year~.)
-datos2 %>% group_by(month) %>% 
-  ggplot(aes(x = month, y = LAeq_e, col = month)) + geom_line(aes(size=1)) + labs(x = "Meses", y = "Ruido entre las 19h y las 23h") + facet_grid(year~.)
-datos2 %>% group_by(month) %>% 
-  ggplot(aes(x = month, y = LAeq_n, col = month)) + geom_line(aes(size=1)) + labs(x = "Meses", y = "Ruido entre las 23h y las 7h") + facet_grid(year~.)
-```
+##Preguntas propuestas
+1)  ¿Cuántas variables o columnas tiene el data frame?
 
 
-Medicion de ruido durante diferentes franjas horarias del dia de marzo(fallas), es el mes que mas ruido hay en Ruzafa durante el año.
-```{r}
-datos2$day <- as.numeric(datos2$day)
-datos2$month <- as.numeric(datos2$month)
-datos2$year <- as.numeric(datos2$year)
-datos2 %>% 
-  filter(month == 3) %>% 
-  ggplot(aes(x = day, y = LAeq_d, col = day, group = day)) + geom_line() + geom_point() + labs(x = "Dias de marzo", y = "") + ggtitle("Ruido entre las 7h y las 19h")
-datos2 %>% 
-  filter(month == 3) %>%
-  ggplot(aes(x = day, y = LAeq_e, col = day, group = day)) + geom_line() + geom_point() + labs(x = "Dias de marzo", y = "") + ggtitle("Ruido entre las 19h y las 23h")
-datos2 %>% 
-  filter(month == 3) %>%
-  ggplot(aes(x = day, y = LAeq_n, col = day, group = day)) + geom_line() + geom_point() + labs(x = "Dias de marzo", y = "") + ggtitle("Ruido entre las 23h y las 7h")
-```
+
+2)  ¿Los datos son fácilmente accesibles?
 
 
-#Fase 3. Acondicionamiento en tidy dataset
+
+3)  ¿Que datos podemos observar en este data frame?
+
+
+4)  ¿Hay datos perdidos?¿Es un analisis univariante o bivariante?
+
+
+5) ¿Cómo varía el ruido durante el día a partir de las siete (de 7 a 19, de 19 a 23 y de 23 a 7) durante los meses dividido en años? 
+
+
+6) En la pregunta anterior, determina cuál es el mes en el que más ruido hay, ¿Cómo se mide el ruido durante las diferentes franjas horarias del dia en ese mes?
+
+
+#Fase 5. Acondicionamiento en tidy dataset
 
 ##Datos no variables
 
-Comprobamos los datos que no varían y eliminamos las columnas. 
+Comprobamos los datos que no varían y eliminamos las columnas.
 
 ```{r}
 datos<-datos[,-(3:5)]
@@ -236,9 +212,11 @@ Vamos a ver si existen datos faltantes(NA) por si hay que corregirlos.
 sum(is.na(datos))
 ```
 
+Como no existen datos faltantes(NA) no hace falta corregir nada.
+
 ##Valores infinitos
 
-Hemos observado que existen valores infinitos en el maximo de r_7_19 y en r_19_23, así que vamos a imputar sus valores como el máximo de los demás:
+Hemos observado que existen valores infinitos en el maximo de r_7\_19 y en r_19_23, así que vamos a imputar sus valores como el máximo de los demás:
 
 ```{r}
 #Vemos que son infinitos
@@ -252,8 +230,11 @@ datos %>% filter(r_7a19 == Inf | r_19a23 == Inf)
 datos$r_7a19[which(datos$r_7a19==Inf)]<-max(datos$r_7a19[which(datos$r_7a19!=Inf)])
 datos$r_19a23[which(datos$r_19a23==Inf)]<-max(datos$r_19a23[which(datos$r_19a23!=Inf)])
 ```
-##Fecha Observación
-Separamos la fecha de observación en 3 columnas (año, mes y día)
+
+##Fecha Observación 
+
+Separamos la fecha de observación en 3 columnas (año, mes y día) y las convertimos a factor
+
 ```{r}
 datos <- separate(datos, col = fecha_observacion, into = c("year", "month", "day"), sep = "-")
 datos$day <- as.factor(datos$day)
@@ -268,63 +249,72 @@ Finalmente para que sea un correcto tidy dataset debemos definir el nivel de son
 ```{r}
 datos<- gather(datos, key= Horario, value= Nivel_Sonoro ,3:7)
 ```
+=======
 
+#Fase 6.Estadísticos, análisis, manipulación... 
+Finalmente, en esta fase nos dispondremos a analizar los datos de manera que podamos obtener la máxima información posible.
 
+##Análisis Univariante 
+Comenzaremos esta fase con el análisis univariante. De este modo podremos conocer cómo se comportan nuestras variables.
 
+Primero calcularemos la media del nivel sonoro.
 
+```{r}
+med_ns <- mean(datos$Nivel_Sonoro)
+```
 
+Como podemos observar, la media del nivel sonoro en todas las calles es de `r med_ns` dBA.
 
+Seguidamente calcularemos la mediana de la misma variable.
 
+```{r}
+mdn_ns <- median(datos$Nivel_Sonoro)
+```
 
+Así pues, podemos decir que la mediana del nivel sonoro es `r mdn_ns` dBA.
 
+Podemos también calcular el rango para saber cuál es la diferencia entre el ruido más alto registrado y el más bajo. Aprovecharemos esto y calcularemos también el mínimo y el máximo. De este modo obtendremos el ruido más bajo registrado y el más alto.
 
+```{r}
+maxi <- max(datos$Nivel_Sonoro)
+mini <- min(datos$Nivel_Sonoro)
+rg <- maxi - mini
+```
 
+Tras estos cálculos observamos como el ruido más alto registrado se situó en `r maxi` dBA, en cambio el ruido más bajo rozó los `r mini` dBA. Por tanto, el rango es de `r rg` dBA.
 
+No obstante, necesitamos obtener un estadístico robusto, es por ello que procederemos a calcular el rango intercuartílico (diferencia entre el tercer y el primer cuartil de una distribución).
 
+```{r}
+iqr <- IQR(datos$Nivel_Sonoro)
+```
 
+Obtenemos que el Rango Intercuartil esá situado en `r iqr`. Al ser un valor relativamente bajo, podemos afirmar que los valores del nivel sonoro tienen poca dispersión.
 
+Para ver si los datos están agrupados entorno a su media, utilizaremos la desviación estándar.
 
+```{r}
+de <- sd(datos$Nivel_Sonoro)
+```
 
+El resultado de esta operación nos muestra un valor muy similar al del rango intercuartil; en este caso, la desviación toma un valor de `r de`. Es un valor relativamente bajo también, por lo que podemos afirmar que los valores que toma la variable, se encuentran cerca de su media.
 
+Por último, para detectar posibles outliers podemos hacer un boxplot.
 
+```{r}
+ggplot(datos, aes(y = Nivel_Sonoro, x = calle)) + geom_boxplot() + facet_grid() + theme (axis.text = element_text(angle = 90)) + labs(title = "Comparación del nivel sonor por calle", x = "Calle", y = "Nivel Sonoro(dBA)") + geom_point(aes(color=calle))
+```
 
+Gracias a este gráfico extraemos la siguiente información: La calle más tranquila (de media) es General Prim chaflán con Donoso Cortes. Además, la calle más ruidosa es la calle Cádiz, en concreto el número 3.
 
+#Solución a las preguntas propuestas
+1) El DataFrame `datos` tiene `r ncol(datos)` variables, que son `r colnames(datos)`.
 
+2) Los datos si que son fácilmente accesibles porque si observamos el Data Frame, se ve claramente y a simple vista la información.
 
+3) En el Data Frame observamos los datos recogidos por sensores que monitorizan el nivel de ruido en diferentes localizaciones del barrio de Ruzafa.
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+4)Si que hay datos perdidos y, es un análisis bivariante ya que tenemos más de una variable.
 
 
 
