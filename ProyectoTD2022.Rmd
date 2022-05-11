@@ -260,7 +260,7 @@ datos$year <- as.factor(datos$year)
 Finalmente para que sea un correcto tidy dataset debemos definir el nivel de sonoridad en las horas en las que hemos grabado.
 
 ```{r}
-datos<- gather(datos, key= Horario, value= Nivel_Sonoro ,3:7)
+datos<- pivot_longer(datos, cols=3:7, names_to = "Horario", values_to = "Nivel_Sonoro")
 ```
 =======
 
