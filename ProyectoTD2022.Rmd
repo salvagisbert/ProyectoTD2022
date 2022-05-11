@@ -299,10 +299,10 @@ El resultado de esta operación nos muestra un valor muy similar al del rango in
 Por último, para detectar posibles outliers podemos hacer un boxplot.
 
 ```{r}
-ggplot(datos, aes(y = Nivel_Sonoro, x = calle)) + geom_boxplot() + facet_grid() + theme (axis.text = element_text(angle = 90)) + labs(title = "Comparación del nivel sonor por calle", x = "Calle", y = "Nivel Sonoro(dBA)") + geom_point(aes(color='calle'))
+ggplot(datos, aes(y = Nivel_Sonoro, x = calle)) + geom_boxplot() + facet_grid() + theme (axis.text = element_text(angle = 90)) + labs(title = "Comparación del nivel sonor por calle", x = "Calle", y = "Nivel Sonoro(dBA)") + geom_point(aes(color=calle))
 ```
 
-Gracias a este gráfico extraemos la siguiente información. La calle más tranquila (de media) es General Prim chaflán con Donoso Cortes. Además, la calle más ruidosa es la calle Cádiz, en concreto el número 3.
+Gracias a este gráfico extraemos la siguiente información: La calle más tranquila (de media) es General Prim chaflán con Donoso Cortes. Además, la calle más ruidosa es la calle Cádiz, en concreto el número 3.
 
 #Solución a las preguntas propuestas
 1) El DataFrame `datos` tiene `r ncol(datos)` variables, que son `r colnames(datos)`.
