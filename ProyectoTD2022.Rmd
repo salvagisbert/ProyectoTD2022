@@ -176,7 +176,7 @@ glimpse(datos)
 6) En la pregunta anterior, determina cuál es el mes en el que más ruido hay, ¿Cómo se mide el ruido durante las diferentes franjas horarias del dia en ese mes?
 
 
-7) ¿Cómo fue el nivel sonoro en las calles de Ruzafa en cada año? ¿Qué calle alcanzó mayor nivel sonoro durante los diferentes años registrados? ¿Y la que menos?
+7) ¿Qué calle alcanzó mayor nivel sonoro durante los diferentes años registrados? ¿Y la que menos?
 
 
 8) ¿Cómo ha variado el ruido en el 2022 en cada calle?
@@ -260,7 +260,7 @@ datos$year <- as.factor(datos$year)
 Finalmente para que sea un correcto tidy dataset debemos definir el nivel de sonoridad en las horas en las que hemos grabado.
 
 ```{r}
-datos<- gather(datos, key= Horario, value= Nivel_Sonoro ,3:7)
+datos<- pivot_longer(datos, cols=3:7, names_to = "Horario", values_to = "Nivel_Sonoro")
 ```
 =======
 
@@ -327,13 +327,86 @@ Gracias a este gráfico extraemos la siguiente información: La calle más tranq
 
 3) En el Data Frame observamos los datos recogidos por sensores que monitorizan el nivel de ruido en diferentes localizaciones del barrio de Ruzafa.
 
-4)Si que hay datos perdidos y, es un análisis bivariante ya que tenemos más de una variable.
+4) Si que hay datos perdidos y, es un análisis bivariante ya que tenemos más de una variable.
 
+5) 
+
+```{r}
+#Creamos data frames seleccionando las columnas que contengan el ruido de 7 a 19
+d_7<- datos%>% filter(Horario == "r_7a19")
+#Representamos el nivel sonoro en cada año, por meses.
+d_7 %>% group_by(month) %>% 
+  ggplot(aes(x = month, y = Nivel_Sonoro, col = month)) + geom_line(aes(size=1)) + labs(x = "Meses", y = "Ruido entre las 7h y las 19h") + facet_grid(year~.)
+
+#Creamos data frames seleccionando las columnas que contengan el ruido de 19 a 23
+d_19<- datos%>% filter(Horario == "r_19a23")
+#Representamos el nivel sonoro en cada año, por meses.
+d_19 %>% group_by(month) %>% 
+  ggplot(aes(x = month, y = Nivel_Sonoro, col = month)) + geom_line(aes(size=1)) + labs(x = "Meses", y = "Ruido entre las 19h y las 23h") + facet_grid(year~.)
+
+##Creamos data frames seleccionando las columnas que contengan el ruido de 23 a 7
+d_23<- datos%>% filter(Horario == "r_23a7")
+#Representamos el nivel sonoro en cada año, por meses.
+d_23 %>% group_by(month) %>% 
+  ggplot(aes(x = month, y = Nivel_Sonoro, col = month)) + geom_line(aes(size=1)) + labs(x = "Meses", y = "Ruido entre las 23h y las 7h") + facet_grid(year~.)
+```
+
+
+6) El mes que mas ruido hay es Marzo comprobamos en que dias hay mas ruido y durante que hora.
+```{r}
+#Creamos data frames seleccionando los días en las diferentes franjas horarias en marzo
+d_7_mz<- datos%>% filter(Horario == "r_7a19")%>%
+  filter(month == "03")
+
+d_19_mz<- datos%>% filter(Horario == "r_19a23")%>% 
+  filter(month == "03")
+
+d_23_mz<- datos%>% filter(Horario == "r_23a7")%>% 
+  filter(month == "03")
+
+#Representamos por días
+d_7_mz %>% 
+  ggplot(aes(x = day, y = Nivel_Sonoro, col = day, group = day)) + geom_point() + labs(x = "Dias de marzo", y = "") + ggtitle("Ruido entre las 7h y las 19h")
+
+d_19_mz %>% 
+  ggplot(aes(x = day, y = Nivel_Sonoro, col = day, group = day)) + geom_point() + labs(x = "Dias de marzo", y = "") + ggtitle("Ruido entre las 19h y las 23h")
+
+d_23_mz %>% 
+  ggplot(aes(x = day, y = Nivel_Sonoro, col = day, group = day)) + geom_point() + labs(x = "Dias de marzo", y = "") + ggtitle("Ruido entre las 23h y las 7h")
+```
+Se comprueba que los dias que mas ruido hay es en los dias que corresponden al periodo de fallas y el horario es entre las 19h y las 23h.
+
+
+7)
+
+```{r}
+datos%>%
+  group_by(calle) %>%
+  filter (Nivel_Sonoro == max(Nivel_Sonoro, na.rm = TRUE )) %>% 
+  select(c(calle, Nivel_Sonoro, day, month, year))
+datos%>%
+  group_by(calle) %>%
+  filter (Nivel_Sonoro == min(Nivel_Sonoro, na.rm = TRUE )) %>% 
+  select(c(calle, Nivel_Sonoro, day, month, year))
+```
+
+8)#
+```{r}
+datos %>% filter(year=="2022", calle=="Cuba_3") %>% 
+  ggplot(aes(x=month, y=Nivel_Sonoro))+geom_point()
+```
+
+9)
+```{r}
+datos %>%
+  group_by(year)%>%
+  summarise_at(vars(Nivel_Sonoro), list (Media = mean))
+```
 10) 
 ```{r}
 d_td_21<- datos%>% filter(Horario == "r_tardenoche") %>% filter(year == 2021)
 d_td_21 %>% group_by(month) %>% 
   ggplot(aes(x = month, y = Nivel_Sonoro, col = month)) + geom_line(aes(size=1)) + labs(x = "Meses", y = "Ruido tarde noche") 
-
+`
 ```
 
