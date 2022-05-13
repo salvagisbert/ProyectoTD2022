@@ -329,5 +329,11 @@ Gracias a este gráfico extraemos la siguiente información: La calle más tranq
 
 4)Si que hay datos perdidos y, es un análisis bivariante ya que tenemos más de una variable.
 
+10) 
+```{r}
+d_td_21<- datos%>% filter(Horario == "r_tardenoche") %>% filter(year == 2021)
+d_td_21 %>% group_by(month) %>% 
+  ggplot(aes(x = month, y = Nivel_Sonoro, col = month)) + geom_line(aes(size=1)) + labs(x = "Meses", y = "Ruido tarde noche") 
 
+```
 
