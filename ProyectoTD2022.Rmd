@@ -90,11 +90,11 @@ package.check <- lapply(packages, FUN = function(x) {
 
 ```
 
-#Introducción:
+## Introducción:
 
 El objetivo de este proyecto es que nos enfrentemos a un problema de tratamiento de datos que abarque todas las etapas que estamos describiendo a lo largo del curso. Analizaremos los datos recogidos por sensores que monitorizan el nivel de ruido en diferentes localizaciones del barrio de Ruzafa.
 
-#FASE 3. Importación de los datos
+# Importación de los datos
 
 Para comenzar a analizar los datos, debemos primero importarlos. Los importaremos de internet para que así estén actualizados constantemente de manera automática. De este modo, cada vez que iniciemos el código se va a descargar desde la URL.
 
@@ -143,19 +143,22 @@ Vivons_Chaf_Cadiz <- read.csv("https://opendata.vlci.valencia.es/datastore/dump/
 Vivons_Chaf_Cadiz<- mutate(Vivons_Chaf_Cadiz, c="Vivons_Chaf_Cadiz")
 ```
 
-#FASE 4. Se juntan los data frames en uno solo.
+# Unión data frames en uno solo
 
 ```{r}
 datos <- rbind(Cadiz_3, rbind(Cadiz_16, rbind(CarlesCervera_34, rbind(CarlesCervera_Chaf_ReinaDonyaMaria, rbind(Cuba_3, rbind(DoctorSerrano_21, rbind(GeneralPrim_Chaf_DonosoCortes, rbind(PuertoRico_21, rbind(SalvadorAbril_Chaf_Maestro_JoseSerrano, rbind(Sueca_2, rbind(Sueca_32, rbind(Sueca_61, rbind(Sueca_Esq_Denia, rbind(Vivons_Chaf_Cadiz)))))))))))))) 
 
 ```
 
-Analisis inicial de los datos.
+## Analisis inicial de los datos.
 ```{r}
 summary(datos)
+```
+```{r}
 glimpse(datos)
 ```
-##Preguntas propuestas
+
+## Preguntas propuestas
 1)  ¿Cuántas variables o columnas tiene el data frame?
 
 
@@ -179,19 +182,17 @@ glimpse(datos)
 7) ¿Qué calle alcanzó mayor nivel sonoro durante los diferentes años registrados? ¿Y la que menos?
 
 
-8) ¿Cómo ha variado el ruido en el 2022 en cada calle?
+
+8) ¿Cuál ha sido el año en el que se ha producido de media más ruido?
 
 
-9) ¿Cuál ha sido el año en el que se ha producido de media más ruido?
-
-
-10) El nivel sonoro en la tarde-noche representa la molestia que produce, ¿en qué mes hubo mayor malestar en el 2021?¿y en cuál menos?
+9) El nivel sonoro en la tarde-noche representa la molestia que produce, ¿en qué mes hubo mayor malestar en el 2021?¿y en cuál menos?
 
 
 
-#Fase 5. Acondicionamiento en tidy dataset
+# Acondicionamiento en tidy dataset
 
-##Datos no variables
+## Datos no variables
 
 Comprobamos los datos que no varían y eliminamos las columnas.
 
@@ -199,7 +200,7 @@ Comprobamos los datos que no varían y eliminamos las columnas.
 datos<-datos[,-(3:5)]
 ```
 
-##Nombres de las columnas
+## Nombres de las columnas
 
 Renombramos las columnas con el fin de manejarlas más fácilmente y de que tengan un nombre más representativo.
 
@@ -207,7 +208,7 @@ Renombramos las columnas con el fin de manejarlas más fácilmente y de que teng
 colnames(datos)<- c("id", "tiempo_grabacion", "r_continuo","r_7a19", "r_tardenoche", "r_19a23", "r_23a7","fecha_observacion", "calle")
 ```
 
-##Tipos de las variables
+## Tipos de las variables
 
 Como hemos visto anteriormente en el análisis inicial de los datos, debemos cambiar la columna ahora llamada tiempo_grabacion a tipo factor, y la variable fecha_observacion a tipo fecha.
 
@@ -217,7 +218,7 @@ datos$fecha_observacion<-as.Date(datos$fecha_observacion)
 datos$calle<-as.factor(datos$calle)
 ```
 
-##Datos faltantes
+## Datos faltantes
 
 Vamos a ver si existen datos faltantes(NA) por si hay que corregirlos.
 
@@ -227,7 +228,7 @@ sum(is.na(datos))
 
 Como no existen datos faltantes(NA) no hace falta corregir nada.
 
-##Valores infinitos
+## Valores infinitos
 
 Hemos observado que existen valores infinitos en el maximo de r_7\_19 y en r_19_23, así que vamos a imputar sus valores como el máximo de los demás:
 
@@ -248,7 +249,7 @@ datos$r_19a23[which(datos$r_19a23==Inf)]<-max(datos$r_19a23[which(datos$r_19a23!
 ```
 
 
-##Fecha Observación 
+## Fecha Observación 
 
 Separamos la fecha de observación en 3 columnas (año, mes y día).
 
@@ -263,7 +264,7 @@ datos$year <- as.factor(datos$year)
 ```
 
 
-##Clasificación por franja horaria.
+## Clasificación por franja horaria.
 
 Finalmente para que sea un correcto tidy dataset debemos definir el nivel de sonoridad en las horas en las que hemos grabado.
 
@@ -272,10 +273,12 @@ datos<- pivot_longer(datos, cols=3:7, names_to = "Horario", values_to = "Nivel_S
 ```
 
 
-#Fase 6.Estadísticos, análisis, manipulación... 
+# Estadísticos, análisis, manipulación... 
+
 Finalmente, en esta fase nos dispondremos a analizar los datos de manera que podamos obtener la máxima información posible.
 
-##Análisis Univariante 
+## Análisis Univariante 
+
 Comenzaremos esta fase con el análisis univariante. De este modo podremos conocer cómo se comportan nuestras variables.
 
 Primero calcularemos la media del nivel sonoro.
@@ -328,16 +331,20 @@ ggplot(datos, aes(y = Nivel_Sonoro, x = calle)) + geom_boxplot() + facet_grid() 
 
 Gracias a este gráfico extraemos la siguiente información: La calle más tranquila (de media) es General Prim chaflán con Donoso Cortes. Además, la calle más ruidosa es la calle Cádiz, en concreto el número 3.
 
-#Solución a las preguntas propuestas
-1) El DataFrame `datos` tiene `r ncol(datos)` variables, que son `r colnames(datos)`.
+# Solución a las preguntas propuestas
+## ) 
+El DataFrame `datos` tiene `r ncol(datos)` variables, que son `r colnames(datos)`.
 
-2) Los datos si que son fácilmente accesibles porque si observamos el Data Frame, se ve claramente y a simple vista la información.
+## ) 
+Los datos si que son fácilmente accesibles porque si observamos el Data Frame, se ve claramente y a simple vista la información.
 
-3) En el Data Frame observamos los datos recogidos por sensores que monitorizan el nivel de ruido en diferentes localizaciones del barrio de Ruzafa.
+## ) 
+En el Data Frame observamos los datos recogidos por sensores que monitorizan el nivel de ruido en diferentes localizaciones del barrio de Ruzafa.
 
-4) Si que hay datos perdidos y, es un análisis bivariante ya que tenemos más de una variable.
+## )
+Si que hay datos perdidos y, es un análisis bivariante ya que tenemos más de una variable.
 
-5)
+## )
 
 Creamos data frames seleccionando las columnas que contengan el ruido en cada franja horaria
 ```{r}
@@ -361,7 +368,8 @@ d_23 %>% group_by(month) %>%
 ```
 
 
-6) El mes que mas ruido hay es Marzo comprobamos en que dias hay mas ruido y durante que hora.
+##)
+El mes que más ruido hay es Marzo comprobamos en qué dias hay mas ruido y durante qué horas.
 
 Creamos data frames seleccionando los días en las diferentes franjas horarias en marzo
 ```{r}
@@ -390,7 +398,7 @@ d_23_mz %>%
 Se comprueba que los dias que mas ruido hay es en los dias que corresponden al periodo de fallas y el horario es entre las 19h y las 23h.
 
 
-7)
+## )
 Buscamos el máximo nivel sonoro y seleccionamos la calle, la fecha y el nivel sonoro
 ```{r}
 datos%>%
@@ -406,29 +414,30 @@ datos%>%
   select(c(calle, Nivel_Sonoro, day, month, year))
 ```
 
-
-8)#
-```{r}
-datos %>% filter(year=="2022", calle=="Cuba_3") %>% 
-  ggplot(aes(x=month, y=Nivel_Sonoro))+geom_point()
-```
-
-9)
+## )
 Creamos una tabla en la que aparezca la media del nivel sonoro en cada año
 ```{r}
 datos %>%
   group_by(year)%>%
   summarise_at(vars(Nivel_Sonoro), list (Media = mean))
 ```
-10)
+## )
 Seleccionamos el horario de la tarde noche y el año 2021
 ```{r}
 d_td_21<- datos%>% filter(Horario == "r_tardenoche") %>% filter(year == 2021)
 ```
-Creamos la gráfica
+Mostramos los meses que más y menos nivel sonoro han alcanzado en la tarde-noche. Además de cada uno de ellos, su máximo y mínimo ruido, y la media.
+```{r}
+d_td_21 %>%
+  group_by(month) %>% 
+  summarise_at(vars(Nivel_Sonoro), list (Media = mean, Maximo = max, Minimo = min)) %>% 
+  filter(Minimo == min(Minimo) | Maximo == max(Maximo))
+```
+Mostramos el resultado gráficamente
 ```{r}
 d_td_21 %>% group_by(month) %>% 
   ggplot(aes(x = month, y = Nivel_Sonoro, col = month)) + geom_line(aes(size=1)) + labs(x = "Meses", y = "Ruido tarde noche") 
 ```
+
 
 
