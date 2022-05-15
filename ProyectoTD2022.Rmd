@@ -369,7 +369,7 @@ d_23 %>% group_by(month) %>%
 
 
 ##)
-El mes que más ruido hay es Marzo comprobamos en qué dias hay mas ruido y durante qué horas.
+El mes que más ruido hay es Marzo comprobamos en qué dias hay mas ruido y durante qué horas y como podemos ver es durante los dias de fallas que son del día 14 de marzo al 19.
 
 Creamos data frames seleccionando los días en las diferentes franjas horarias en marzo
 ```{r}
