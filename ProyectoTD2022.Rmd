@@ -345,6 +345,19 @@ En el Data Frame observamos los datos recogidos por sensores que monitorizan el 
 Si que hay datos perdidos y, es un análisis bivariante ya que tenemos más de una variable.
 
 ## )
+Por una parte, observamos que entre las 7:00 y las 19:00 del años 2021 y 2022 marzo es el més
+con más ruido pero que en el 2021 septiembre se iguala al sonido de marzo. Por otra parte, observamos que en estas horas en el 2020 el mes con más ruido era Diciembre.
+
+Lo podemos comparar con el gráfico del ruido entre las 19:00 y las 23:00 donde
+vemos que el mes con más ruido es diciembre en el 2020, abril y septiembre en el
+2021 y marzo en el 2022.
+
+También vemos el gráfico del ruido entre las 23:00 y las 7:00 donde en el año
+2020 sigue siendo diciembre el mes más ruidoso, en el año 2021 es septiembre seguido de enero y en el año 2022 también sigue siendo marzo.
+
+En conclusión, durante todo un día en el 2020 el mes más ruidoso es dieicembre,
+en 2021 es septiembre y abril y en el 2022 es el mes de marzo. También podemos 
+observar que en el año 2021 se hizo más ruido que en el 2020 y el 2022.
 
 Creamos data frames seleccionando las columnas que contengan el ruido en cada franja horaria
 ```{r}
