@@ -346,7 +346,7 @@ Los datos si que son fácilmente accesibles porque si observamos el Data Frame, 
 En el Data Frame observamos los datos recogidos por sensores que monitorizan el nivel de ruido en diferentes localizaciones del barrio de Ruzafa.
 
 ## )
-Si que hay datos perdidos y, es un análisis bivariante ya que tenemos más de una variable.
+Si que hay datos perdidos. Hemos visto que hay valores infinitos pero no hay valores faltantes (NA)
 
 ## )
 Por una parte, observamos que entre las 7:00 y las 19:00 del años 2021 y 2022 marzo es el més
