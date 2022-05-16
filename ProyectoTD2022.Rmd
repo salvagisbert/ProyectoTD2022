@@ -229,3 +229,5 @@ Finalmente para que sea un correcto tidy dataset debemos definir el nivel de son
 ```{r}
 gather(datos, key= Horario, value= Nivel_Sonoro ,4:8)
 ```
+
+Prueba:
