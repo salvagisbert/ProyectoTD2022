@@ -435,8 +435,17 @@ Creamos una tabla en la que aparezca la media del nivel sonoro en cada año
 datos %>%
   group_by(year)%>%
   summarise_at(vars(Nivel_Sonoro), list (Media = mean))
+
 ```
 El año con más nivel sonoro de media es el 2022 con una media de 62.14597 dba.
+
+```{r}
+datos %>%
+  group_by(year)%>%
+  summarise_at(vars(Nivel_Sonoro), list (Media = mean))%>% 
+  ggplot(aes(x=year, y = Media, color = year)) + geom_point(aes(size=1))
+```
+Aquí vemos gráficamente cual es la media de cada año.
 
 ## )
 Seleccionamos el horario de la tarde noche y el año 2021
@@ -455,4 +464,4 @@ Mostramos el resultado gráficamente
 d_td_21 %>% group_by(month) %>% 
   ggplot(aes(x = month, y = Nivel_Sonoro, col = month)) + geom_line(aes(size=1)) + labs(x = "Meses", y = "Ruido tarde noche") 
 ```
-A partir de esta gráfica podemos concluir que el mes con más ruido durante la tarde y la noche es septiembre.
+A partir de esta gráfica podemos concluir que el mes con más ruido durante la tarde y la noche es septiembre y el que menos ruido es enero.
