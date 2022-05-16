@@ -271,11 +271,6 @@ Finalmente para que sea un correcto tidy dataset debemos definir el nivel de son
 ```{r}
 datos<- pivot_longer(datos, cols=3:7, names_to = "Horario", values_to = "Nivel_Sonoro")
 ```
-```
-
-
-
-
 
 # Estadísticos, análisis, manipulación... 
 
@@ -423,6 +418,9 @@ datos%>%
   filter (Nivel_Sonoro == max(Nivel_Sonoro, na.rm = TRUE )) %>% 
   select(c(calle, Nivel_Sonoro, day, month, year))
 ```
+Mediante la tabla, podemos observar que las calles, en este caso, con el máximo nivel sonoro son Cadiz_16 y CarlesCervera_Chaf_ReinaDonyaMaria.
+
+
 Buscamos el mínimo nivel sonoro y seleccionamos la calle, la fecha y el nivel sonoro
 ```{r}
 datos%>%
@@ -438,6 +436,8 @@ datos %>%
   group_by(year)%>%
   summarise_at(vars(Nivel_Sonoro), list (Media = mean))
 ```
+El año con más nivel sonoro de media es el 2022 con una media de 62.14597 dba.
+
 ## )
 Seleccionamos el horario de la tarde noche y el año 2021
 ```{r}
@@ -455,6 +455,4 @@ Mostramos el resultado gráficamente
 d_td_21 %>% group_by(month) %>% 
   ggplot(aes(x = month, y = Nivel_Sonoro, col = month)) + geom_line(aes(size=1)) + labs(x = "Meses", y = "Ruido tarde noche") 
 ```
-
-
-
+A partir de esta gráfica podemos concluir que el mes con más ruido durante la tarde y la noche es septiembre.
