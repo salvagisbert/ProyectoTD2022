@@ -272,7 +272,6 @@ Finalmente para que sea un correcto tidy dataset debemos definir el nivel de son
 datos<- pivot_longer(datos, cols=3:7, names_to = "Horario", values_to = "Nivel_Sonoro")
 ```
 
-
 # Estadísticos, análisis, manipulación... 
 
 Finalmente, en esta fase nos dispondremos a analizar los datos de manera que podamos obtener la máxima información posible.
@@ -339,26 +338,25 @@ El DataFrame `datos` tiene `r ncol(datos)` variables, que son `r colnames(datos)
 Los datos si que son fácilmente accesibles porque si observamos el Data Frame, se ve claramente y a simple vista la información.
 
 ## ) 
-En el Data Frame observamos los datos recogidos por sensores que monitorizan el nivel de ruido en diferentes localizaciones del barrio de Ruzafa.
+En el Data Frame observamos los datos recogidos por sensores que monitorizan el nivel de ruido en diferentes localizaciones del barrio de Ruzafa. Tenemos 8 variables:
+- ID
+- Tiempo Grabación: Momento en el que los sensores graban el nivel sonoro.
+- Year: Fecha de observación (año)
+- Month: Fecha de observación (mes)
+- Day: Fecha de observación (día)
+- Calle: Calle que estamos analizando (12 calles en total)
+- Horario: Franja horaria de observación
+  - r_continuo: Nivel Sonoro Continuo
+  - r_7a19: Nivel Sonoro desde las siete de la mañana hasta las 7 de la tarde
+  - r_tardenoche: Nivel Sonoro por la tarde noche que representa la molestia que produce.
+  - r_19a23: Nivel Sonoro desde las siete de la tarde hasta las once de la noche.
+  - r_23a7: Nivel Sonoro desde las 11 de la noche hasta las siete de la mañana.
+- Nivel Sonoro: cantidad de dba 
 
 ## )
-Si que hay datos perdidos y, es un análisis bivariante ya que tenemos más de una variable.
+Si que hay datos perdidos. Hemos visto que hay valores infinitos pero no hay valores faltantes (NA)
 
 ## )
-Por una parte, observamos que entre las 7:00 y las 19:00 del años 2021 y 2022 marzo es el més
-con más ruido pero que en el 2021 septiembre se iguala al sonido de marzo. Por otra parte, observamos que en estas horas en el 2020 el mes con más ruido era Diciembre.
-
-Lo podemos comparar con el gráfico del ruido entre las 19:00 y las 23:00 donde
-vemos que el mes con más ruido es diciembre en el 2020, abril y septiembre en el
-2021 y marzo en el 2022.
-
-También vemos el gráfico del ruido entre las 23:00 y las 7:00 donde en el año
-2020 sigue siendo diciembre el mes más ruidoso, en el año 2021 es septiembre seguido de enero y en el año 2022 también sigue siendo marzo.
-
-En conclusión, durante todo un día en el 2020 el mes más ruidoso es dieicembre,
-en 2021 es septiembre y abril y en el 2022 es el mes de marzo. También podemos 
-observar que en el año 2021 se hizo más ruido que en el 2020 y el 2022.
-
 Creamos data frames seleccionando las columnas que contengan el ruido en cada franja horaria
 ```{r}
 d_7<- datos%>% filter(Horario == "r_7a19")
@@ -379,11 +377,22 @@ d_23 %>% group_by(month) %>%
   ggplot(aes(x = month, y = Nivel_Sonoro, col = month)) + geom_line(aes(size=1)) + labs(x = "Meses", y = "Ruido entre las 23h y las 7h") + facet_grid(year~.)
 
 ```
+Por una parte, observamos que entre las 7:00 y las 19:00 del años 2021 y 2022 marzo es el més
+con más ruido pero que en el 2021 septiembre se iguala al sonido de marzo. Por otra parte, observamos que en estas horas en el 2020 el mes con más ruido era Diciembre.
+
+Lo podemos comparar con el gráfico del ruido entre las 19:00 y las 23:00 donde
+vemos que el mes con más ruido es diciembre en el 2020, abril y septiembre en el
+2021 y marzo en el 2022.
+
+También vemos el gráfico del ruido entre las 23:00 y las 7:00 donde en el año
+2020 sigue siendo diciembre el mes más ruidoso, en el año 2021 es septiembre seguido de enero y en el año 2022 también sigue siendo marzo.
+
+En conclusión, durante todo un día en el 2020 el mes más ruidoso es dieicembre,
+en 2021 es septiembre y abril y en el 2022 es el mes de marzo. También podemos 
+observar que en el año 2021 se hizo más ruido que en el 2020 y el 2022.
 
 
-##)
-El mes que más ruido hay es Marzo comprobamos en qué dias hay mas ruido y durante qué horas y como podemos ver es durante los dias de fallas que son del día 14 de marzo al 19.
-
+## )
 Creamos data frames seleccionando los días en las diferentes franjas horarias en marzo
 ```{r}
 d_7_mz<- datos%>% filter(Horario == "r_7a19")%>%
@@ -407,8 +416,7 @@ d_19_mz %>%
 d_23_mz %>% 
   ggplot(aes(x = day, y = Nivel_Sonoro, col = day, group = day)) + geom_point() + labs(x = "Dias de marzo", y = "") + ggtitle("Ruido entre las 23h y las 7h")
 ```
-
-Se comprueba que los dias que mas ruido hay es en los dias que corresponden al periodo de fallas y el horario es entre las 19h y las 23h.
+El mes que más ruido hay es Marzo, comprobamos en qué dias hay mas ruido y durante qué horas y cómo podemos ver es durante los dias de fallas que son del día 14 de marzo al 19 y el horario es entre las 19h y las 23h.
 
 
 ## )
@@ -419,6 +427,9 @@ datos%>%
   filter (Nivel_Sonoro == max(Nivel_Sonoro, na.rm = TRUE )) %>% 
   select(c(calle, Nivel_Sonoro, day, month, year))
 ```
+Mediante la tabla, podemos observar que las calles, en este caso, con el máximo nivel sonoro son Cadiz_16 y CarlesCervera_Chaf_ReinaDonyaMaria.
+
+
 Buscamos el mínimo nivel sonoro y seleccionamos la calle, la fecha y el nivel sonoro
 ```{r}
 datos%>%
@@ -426,6 +437,7 @@ datos%>%
   filter (Nivel_Sonoro == min(Nivel_Sonoro, na.rm = TRUE )) %>% 
   select(c(calle, Nivel_Sonoro, day, month, year))
 ```
+Observamos que la calle con el mínimo nivel sonoro es CarlesCervera_34 el día 07/02/2021 con un nível sonoro de 40.1 dba.
 
 ## )
 Creamos una tabla en la que aparezca la media del nivel sonoro en cada año
@@ -433,7 +445,18 @@ Creamos una tabla en la que aparezca la media del nivel sonoro en cada año
 datos %>%
   group_by(year)%>%
   summarise_at(vars(Nivel_Sonoro), list (Media = mean))
+
 ```
+El año con más nivel sonoro de media es el 2022 con una media de 62.14597 dba.
+
+```{r}
+datos %>%
+  group_by(year)%>%
+  summarise_at(vars(Nivel_Sonoro), list (Media = mean))%>% 
+  ggplot(aes(x=year, y = Media, color = year)) + geom_point(aes(size=1))
+```
+Aquí vemos gráficamente cual es la media de cada año.
+
 ## )
 Seleccionamos el horario de la tarde noche y el año 2021
 ```{r}
@@ -451,6 +474,5 @@ Mostramos el resultado gráficamente
 d_td_21 %>% group_by(month) %>% 
   ggplot(aes(x = month, y = Nivel_Sonoro, col = month)) + geom_line(aes(size=1)) + labs(x = "Meses", y = "Ruido tarde noche") 
 ```
-actualizar
-
+A partir de esta gráfica podemos concluir que el mes con más ruido durante la tarde y la noche es septiembre y el que menos ruido es enero.
 
